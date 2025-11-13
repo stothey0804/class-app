@@ -127,3 +127,8 @@
   margin: 0 auto;
   padding: 1.2em;
 }
+
+.class__title {
+  width: 40vw;
+  max-width: 300px;
+}

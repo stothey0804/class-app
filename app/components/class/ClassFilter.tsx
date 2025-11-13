@@ -18,7 +18,7 @@ import { SortType } from "@/lib/types";
 
 interface ClassFilterProps {
   sortBy: SortType;
-  onSortChange: (value: any) => void;
+  onSortChange: (value: string) => void;
 }
 
 /**

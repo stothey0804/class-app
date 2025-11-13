@@ -65,3 +65,13 @@ export const sortDataList = (
     return list.sort((a, b) => (b.id || 0) - (a.id || 0));
   }
 };
+
+/**
+ * 숫자를 금액 형식의 문자열로 변환
+ *
+ * @param num 변환할 숫자
+ * @returns 금액 형식 문자열 (e.g. "1,000,000")
+ */
+export const formatPrice = (num: number): string => {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
