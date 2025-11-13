@@ -1,7 +1,7 @@
 {
   "class": [
     {
-      "id": "0",
+      "id": 1,
       "instructor": "김세영",
       "title": "강의1",
       "capacity": 10,
@@ -9,7 +9,7 @@
       "sellingPrice": 100000
     },
     {
-      "id": "1",
+      "id": 2,
       "instructor": "김세영",
       "title": "강의2",
       "capacity": 10,
@@ -17,7 +17,7 @@
       "sellingPrice": 100000
     },
     {
-      "id": "2",
+      "id": 3,
       "instructor": "김세영",
       "title": "강의3",
       "capacity": 10,
@@ -25,7 +25,7 @@
       "sellingPrice": 100000
     },
     {
-      "id": "3",
+      "id": 4,
       "instructor": "김세영",
       "title": "강의4",
       "capacity": 10,
@@ -33,7 +33,7 @@
       "sellingPrice": 100000
     },
     {
-      "id": "4",
+      "id": 5,
       "instructor": "김세영",
       "title": "강의5",
       "capacity": 10,
@@ -41,7 +41,7 @@
       "sellingPrice": 100000
     },
     {
-      "id": "5",
+      "id": 6,
       "instructor": "김세영",
       "title": "강의6",
       "capacity": 10,
@@ -49,7 +49,7 @@
       "sellingPrice": 100000
     },
     {
-      "id": "6",
+      "id": 7,
       "instructor": "김세영",
       "title": "강의7",
       "capacity": 10,
@@ -57,7 +57,7 @@
       "sellingPrice": 100000
     },
     {
-      "id": "7",
+      "id": 8,
       "instructor": "김세영",
       "title": "강의8",
       "capacity": 10,
@@ -65,7 +65,7 @@
       "sellingPrice": 100000
     },
     {
-      "id": "8",
+      "id": 9,
       "instructor": "김세영",
       "title": "강의9",
       "capacity": 10,
@@ -73,10 +73,34 @@
       "sellingPrice": 100000
     },
     {
-      "id": "9bf5",
+      "id": 10,
       "title": "테스트 강의",
       "capacity": 100,
       "sellingPrice": 2001000,
+      "instructor": "김세영",
+      "applicants": 0
+    },
+    {
+      "id": 11,
+      "title": "테스트",
+      "capacity": 12,
+      "sellingPrice": 100000,
+      "instructor": "김세영",
+      "applicants": 0
+    },
+    {
+      "id": 12,
+      "title": "테스트",
+      "capacity": 100,
+      "sellingPrice": 100000,
+      "instructor": "김세영",
+      "applicants": 0
+    },
+    {
+      "id": 13,
+      "title": "테스트2",
+      "capacity": 20,
+      "sellingPrice": 900000,
       "instructor": "김세영",
       "applicants": 0
     }

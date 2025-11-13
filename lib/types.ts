@@ -9,4 +9,10 @@ export interface ClassData {
   sellingPrice: number;
 }
 
+export interface ClassListResponse {
+  data: ClassData[];
+  next: number | null;
+  prev: number | null;
+}
+
 export type ClassListData = Array<ClassData> | [];
