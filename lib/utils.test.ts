@@ -1,4 +1,4 @@
-import { isAvailablePassword, sortedDataList } from "./utils";
+import { isAvailablePassword, sortDataList } from "./utils";
 import { ClassData } from "./types";
 import {
   SORT_TYPE_CAPACITY_DESC,
@@ -44,7 +44,7 @@ describe("isAvailablePassword", () => {
   });
 });
 
-describe("sortedDataList", () => {
+describe("sortDataList", () => {
   const mockData: ClassData[] = [
     {
       id: 1,
@@ -90,7 +90,7 @@ describe("sortedDataList", () => {
 
   describe("최근 등록순 정렬 (id_desc)", () => {
     it("ID가 높은 순서대로 정렬", () => {
-      const result = sortedDataList(mockData, SORT_TYPE_ID_DESC);
+      const result = sortDataList(mockData, SORT_TYPE_ID_DESC);
 
       expect(result[0].id).toBe(5);
       expect(result[1].id).toBe(4);
@@ -101,7 +101,7 @@ describe("sortedDataList", () => {
 
     it("원본 데이터를 변경하지 않음", () => {
       const originalData = [...mockData];
-      sortedDataList(mockData, SORT_TYPE_ID_DESC);
+      sortDataList(mockData, SORT_TYPE_ID_DESC);
 
       expect(mockData).toEqual(originalData);
     });
@@ -109,7 +109,7 @@ describe("sortedDataList", () => {
 
   describe("신청자 많은순 정렬 (capacity_desc)", () => {
     it("신청자 수가 많은 순서대로 정렬", () => {
-      const result = sortedDataList(mockData, SORT_TYPE_CAPACITY_DESC);
+      const result = sortDataList(mockData, SORT_TYPE_CAPACITY_DESC);
 
       expect(result[0].applicants).toBe(100); // 강의 3
       expect(result[1].applicants).toBe(50); // 강의 1
@@ -121,7 +121,7 @@ describe("sortedDataList", () => {
 
   describe("수강률 높은순 정렬 (rate_desc)", () => {
     it("수강률이 높은 순서대로 정렬", () => {
-      const result = sortedDataList(mockData, SORT_TYPE_RATE_DESC);
+      const result = sortDataList(mockData, SORT_TYPE_RATE_DESC);
 
       // 강의 4: 30/30 = 100%
       // 강의 2: 40/50 = 80%
@@ -143,20 +143,20 @@ describe("sortedDataList", () => {
 
   describe("기타 경우", () => {
     it("빈 배열인 경우 빈 배열 리턴", () => {
-      const result = sortedDataList([], SORT_TYPE_ID_DESC);
+      const result = sortDataList([], SORT_TYPE_ID_DESC);
 
       expect(result).toEqual([]);
     });
 
     it("undefined인 경우 빈 배열 리턴", () => {
-      const result = sortedDataList(undefined, SORT_TYPE_ID_DESC);
+      const result = sortDataList(undefined, SORT_TYPE_ID_DESC);
 
       expect(result).toEqual([]);
     });
 
     it("데이터가 1개인 경우 리턴", () => {
       const singleData: ClassData[] = [mockData[0]];
-      const result = sortedDataList(singleData, SORT_TYPE_ID_DESC);
+      const result = sortDataList(singleData, SORT_TYPE_ID_DESC);
 
       expect(result).toEqual(singleData);
     });
@@ -167,7 +167,7 @@ describe("sortedDataList", () => {
         { ...mockData[1], id: 2 },
       ];
 
-      const result = sortedDataList(dataWithoutId, SORT_TYPE_ID_DESC);
+      const result = sortDataList(dataWithoutId, SORT_TYPE_ID_DESC);
 
       expect(result[0].id).toBe(2);
       expect(result[1].id).toBeUndefined();
@@ -176,12 +176,12 @@ describe("sortedDataList", () => {
 
   describe("정렬 타입 변경", () => {
     it("각 정렬 타입마다 다른 결과 리턴", () => {
-      const resultById = sortedDataList(mockData, SORT_TYPE_ID_DESC);
-      const resultByCapacity = sortedDataList(
+      const resultById = sortDataList(mockData, SORT_TYPE_ID_DESC);
+      const resultByCapacity = sortDataList(
         mockData,
         SORT_TYPE_CAPACITY_DESC
       );
-      const resultByRate = sortedDataList(mockData, SORT_TYPE_RATE_DESC);
+      const resultByRate = sortDataList(mockData, SORT_TYPE_RATE_DESC);
 
       // 첫 번째 아이템이 각각 달라야 함
       expect(resultById[0].id).not.toBe(resultByCapacity[0].id);

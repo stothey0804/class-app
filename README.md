@@ -1,20 +1,20 @@
 # 월부 프론트엔드 과제 전형
 
 ### 🛠 사용 기술 및 패키지
-* TypeScript
-* Next.js (v16.0.1)
-* React (v19.2.0)
-* jest
-  - util.ts 의 로직 검증을 위해 사용했습니다.
-* js-cookie
-  - 로그인 유저정보 저장을 위해 사용했습니다.
-* json-server
-  - 데이터 mocking 을 위해 사용했습니다. (로컬 3001 포트로 사용)
-* Tanstack Query
-  - fetching 된 데이터를 캐싱하기 위해 사용했습니다.
-* tailwindscss & shadcn
-  - 컴포넌트 스타일을 위해 사용했습니다.
 
+- TypeScript
+- Next.js (v16.0.1)
+- React (v19.2.0)
+- jest
+  - util.ts 의 로직 검증을 위해 사용했습니다.
+- js-cookie
+  - 로그인 유저정보 저장을 위해 사용했습니다.
+- json-server
+  - 데이터 mocking 을 위해 사용했습니다. (로컬 3001 포트로 사용)
+- Tanstack Query
+  - fetching 된 데이터를 캐싱하기 위해 사용했습니다.
+- tailwindscss & shadcn
+  - 컴포넌트 스타일을 위해 사용했습니다.
 
 ## 📱 화면 정의 및 구현 내용
 
@@ -25,34 +25,36 @@
 
 의 흐름을 각각 1depth, 2depth, 3depth 로 가정하고 정의했습니다.
 
-|1depth|2depth|3depth|
-|------|---|---|
-|<img width="371" height="662" alt="회원가입" src="https://github.com/user-attachments/assets/acc98596-6b84-47e5-8ea6-fd6b56e6e73e" />|<img width="371" height="662" alt="강의목록" src="https://github.com/user-attachments/assets/deab57a7-706f-410b-919f-5d31e48a7b57" />|<img width="371" height="662" alt="수강신청" src="https://github.com/user-attachments/assets/15ac62b3-0453-4f59-80dc-c13d7545a1df" />|
-|path: /|path: /class|path: /class/open|
+| 1depth                                                                                                                                | 2depth                                                                                                                                | 3depth                                                                                                                                |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| <img width="371" height="662" alt="회원가입" src="https://github.com/user-attachments/assets/acc98596-6b84-47e5-8ea6-fd6b56e6e73e" /> | <img width="371" height="662" alt="강의목록" src="https://github.com/user-attachments/assets/deab57a7-706f-410b-919f-5d31e48a7b57" /> | <img width="371" height="662" alt="수강신청" src="https://github.com/user-attachments/assets/15ac62b3-0453-4f59-80dc-c13d7545a1df" /> |
+| path: /                                                                                                                               | path: /class                                                                                                                          | path: /class/open                                                                                                                     |
 
 ### 1. 회원가입
+
 - 요구사항에 로그인 기능이 따로 없는 것으로 판단, 회원가입의 내용은 정보입력 및 비밀번호 조건 검증을 통과하면 데이터 저장없이 바로 강의목록으로 넘어갑니다.
 - submit 시 js-cookie 를 이용해 사용자 이름과 유형을 쿠키로 저장합니다.
   - 강사 유형의 경우 강의목록에서 강의등록 버튼이 노출됩니다.
   - 강의 등록 시 쿠키에 저장된 사용자 이름 바탕으로 강의가 개설됩니다.
-- (추가) 핸드폰 번호 포맷팅을 위한 핸들러를 추가했습니다.
+- ➕ 핸드폰 번호 포맷팅을 위한 핸들러를 추가했습니다.
 
 ### 2. 강의목록
+
 - 강의목록은 js-server 를 이용하여, `class-db.json` 파일에 저장된 데이터를 참조합니다.
-- 강의목록은 요구사항에 최종 신청까지 이어지지 않는 것으로 판단, checkbox를 통한 다중선택만 가능하게 구현했습니다.
-- `IntersectionObserver` 를 통해 트리거 지점 요소에 도달하면 다음 페이지를 렌더링하는 무한 스크롤 기능을 구현했습니다.
+- 강의 신청 기능은 요구사항 상 실제 신청한 유저 정보까지는 수집하지 않는다고 판단, checkbox를 통한 다중선택 후 신청 시 신청 인원이 증가하는 방향으로 구현했습니다. -> `useClassSelection` hook 으로 추상화.
 - 정렬 기능을 통해 정렬 기준이 바뀔 때마다 데이터를 재정렬합니다.
-- 📌 무한 스크롤은 페이지 요청을 나누어 서버에서 정렬된 데이터를 주는 것을 선호하지만, 이번 과제는 프론트엔드 개발 과제이므로 서버 정렬로직을 구현하지 않고, 전체 데이터를 기준으로 클라이언트 영역에서 정렬한 후 지정한 단위에 따라 추가로 노출시키는 방향으로 구현했습니다.
+- `IntersectionObserver` 를 통해 트리거 지점 요소에 도달하면 다음 페이지를 렌더링하는 무한 스크롤 기능을 구현했습니다. -> `useIntersectionObserver` hook
+- 💬 무한 스크롤은 페이지 요청을 나누어 서버에서 정렬된 데이터를 주는 것을 선호하지만, 이번 과제는 프론트엔드 개발 과제이므로 적시적인 구현을 위해 서버 단의 정렬 로직을 구현하지않고, 전체 데이터를 기준으로 클라이언트 영역에서 정렬한 후 지정한 단위에 따라 추가로 노출시키는 방향으로 구현했습니다.
   - `queries.ts` 에 infiniteQuery 버전 코드를 남겨두었습니다.
-- (추가)
-  
+- ➕ 현재 선택한 강의의 수와 총 금액을 표시합니다.
 
 ### 3. 강의등록
-- 강의등록은 입력한 form 을 바탕으로, `class-db.json` 파일에 데이터를 추가합니다.
-- (추가) 금액 단위 포맷팅을 위한 핸들러를 추가했습니다.
 
+- 강의등록은 입력한 form 을 바탕으로, `class-db.json` 파일에 데이터를 추가합니다.
+- ➕ 금액 단위 포맷팅을 위한 핸들러를 추가했습니다.
 
 ## 📁 프로젝트 구조
+
 ```
   weolbu-assignment/
   ├── app/
@@ -66,9 +68,9 @@
   ├── lib/                  # 비즈니스 로직 & 유틸리티
   │   ├── queries.ts        # React Query hook & API
   │   ├── types.ts          # TypeScript 타입
-  │   ├── hooks.ts          # useIntersectionObserver
+  │   ├── hooks.ts          # 커스텀 hook
   │   ├── utils.ts          # 유틸리티 함수
   │   ├── utils.test.ts     # 유틸리티 함수 테스트 파일
   │   └── constants.ts      # 상수 정의
   └── public/
-```           
+```
