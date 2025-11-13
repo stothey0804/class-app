@@ -12,13 +12,9 @@ import {
 import { useGetClassData } from "@/lib/queries";
 import { useIntersectionObserver } from "@/lib/hooks";
 import { Spinner } from "@/components/ui/spinner";
-import {
-  CLASS_PER_PAGE,
-  SORT_TYPE_CAPACITY_DESC,
-  SORT_TYPE_ID_DESC,
-  SORT_TYPE_RATE_DESC,
-} from "@/lib/constants";
+import { CLASS_PER_PAGE, SORT_TYPE_ID_DESC } from "@/lib/constants";
 import { SortType } from "@/lib/types";
+import { sortDataList } from "@/lib/utils";
 
 /**
  * /class - 강의 목록 컴포넌트
@@ -30,35 +26,16 @@ export default function Page() {
   const { data, isLoading } = useGetClassData();
 
   /** 정렬된 전체 데이터 리스트 */
-  const sortedDataList = useMemo(() => {
-    if (!data) {
-      return [];
-    }
-
-    const list = [...data];
-
-    if (sortBy === SORT_TYPE_RATE_DESC) {
-      // 수강률 높은순
-      return list.sort((a, b) => {
-        const rateA = a.capacity > 0 ? a.applicants / a.capacity : 0;
-        const rateB = b.capacity > 0 ? b.applicants / b.capacity : 0;
-        return rateB - rateA;
-      });
-    } else if (sortBy === SORT_TYPE_CAPACITY_DESC) {
-      // 신청자 많은순
-      return list.sort((a, b) => b.applicants - a.applicants);
-    } else {
-      // 최근 등록순 (default)
-      return list.sort((a, b) => (b.id || 0) - (a.id || 0));
-    }
+  const sortedData = useMemo(() => {
+    return sortDataList(data, sortBy);
   }, [data, sortBy]);
 
   /** 현재 표시 중인 데이터 */
   const displayedData = useMemo(() => {
-    return sortedDataList.slice(0, displayCount);
-  }, [sortedDataList, displayCount]);
+    return sortedData.slice(0, displayCount);
+  }, [sortedData, displayCount]);
 
-  const hasNextPage = displayCount < sortedDataList.length;
+  const hasNextPage = displayCount < sortedData.length;
 
   /** 무한 스크롤 타겟 ref */
   const { targetRef } = useIntersectionObserver({

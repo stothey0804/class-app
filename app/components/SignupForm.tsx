@@ -23,7 +23,7 @@ import {
 } from "@/lib/constants";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircleIcon } from "lucide-react";
-import { isAvailablePassword } from "@/lib/validation";
+import { isAvailablePassword } from "@/lib/utils";
 
 /**
  * 회원 가입을 위한 Form 클라이언트 컴포넌트
