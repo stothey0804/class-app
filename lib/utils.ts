@@ -75,3 +75,16 @@ export const sortDataList = (
 export const formatPrice = (num: number): string => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
+
+/**
+ * 전화번호를 000-0000-0000 문자열로 변환
+ *
+ * @param value 입력된 전화번호 문자열
+ * @returns 포맷팅된 전화번호 (e.g. "010-1234-5678")
+ */
+export const formatPhoneNumber = (value: string): string => {
+  const numbers = value.replace(/[^\d]/g, "").slice(0, 11);
+  return numbers.replace(/(\d{3})(\d{0,4})(\d{0,4})/, (_, p1, p2, p3) =>
+    [p1, p2, p3].filter(Boolean).join("-")
+  );
+};

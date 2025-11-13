@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Cookies from "js-cookie";
 
 import { Card } from "@/components/ui/card";
@@ -14,12 +15,24 @@ import {
 } from "@/lib/constants";
 
 import { useAddClassData } from "@/lib/queries";
+import { formatPrice } from "@/lib/utils";
 
 /**
  * 강의 등록 페이지 클라이언트 컴포넌트
  */
 export function AddClassPage() {
   const { mutate, isPending } = useAddClassData();
+  const [priceValue, setPriceValue] = useState("");
+
+  /**
+   * 가격 입력 핸들러
+   */
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // 숫자만 추출
+    const value = e.target.value.replace(/[^\d]/g, "");
+    const formatted = value ? formatPrice(Number(value)) : "";
+    setPriceValue(formatted);
+  };
 
   /**
    * 강의등록 핸들러
@@ -31,10 +44,14 @@ export function AddClassPage() {
 
     const userName = Cookies.get(DATA_KEY_USER_NAME);
 
+    // 쉼표 제거 후 숫자로 변환
+    const priceString = formData.get("sellingPrice") as string;
+    const priceNumber = Number(priceString.replace(/,/g, ""));
+
     const newClass = {
       title: formData.get("title") as string,
       capacity: Number(formData.get("capacity")),
-      sellingPrice: Number(formData.get("sellingPrice")),
+      sellingPrice: priceNumber,
       instructor: userName || "instructor",
       applicants: 0,
     };
@@ -73,8 +90,10 @@ export function AddClassPage() {
               <Input
                 id={INPUT_CLASS_PRICE_ID}
                 name="sellingPrice"
-                type="number"
+                type="text"
                 placeholder="100,000"
+                value={priceValue}
+                onChange={handlePriceChange}
                 required
               />
             </Field>

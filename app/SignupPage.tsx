@@ -23,15 +23,24 @@ import {
 } from "@/lib/constants";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircleIcon } from "lucide-react";
-import { isAvailablePassword } from "@/lib/utils";
+import { isAvailablePassword, formatPhoneNumber } from "@/lib/utils";
 
 /**
  * 회원 가입 페이지 클라이언트 컴포넌트
  */
 export function SignupPage() {
   const [isInvalidPassword, setIsInvalidPassword] = useState(false);
+  const [phoneValue, setPhoneValue] = useState("");
 
   const router = useRouter();
+
+  /**
+   * 전화번호 입력 핸들러
+   */
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhoneNumber(e.target.value);
+    setPhoneValue(formatted);
+  };
 
   /**
    * 회원가입 핸들러
@@ -92,6 +101,9 @@ export function SignupPage() {
                 name="phone"
                 type="tel"
                 placeholder="010-1234-5678"
+                value={phoneValue}
+                onChange={handlePhoneChange}
+                maxLength={13}
                 required
               ></Input>
             </Field>
