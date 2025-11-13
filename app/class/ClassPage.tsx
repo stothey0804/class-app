@@ -7,7 +7,7 @@ import {
   ClassList,
   ClassItem,
   Buttons,
-} from "../components/class";
+} from "@/components/class";
 
 import { useGetClassData } from "@/lib/queries";
 import { useIntersectionObserver } from "@/lib/hooks";

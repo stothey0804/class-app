@@ -1,6 +1,6 @@
 import "./globals.css";
-import { PageHeader } from "./components/PageHeader";
-import { LayoutProvider } from "./components/LayoutProvider";
+import { PageHeader } from "@/components/PageHeader";
+import { LayoutProvider } from "@/components/LayoutProvider";
 
 export default function RootLayout({
   children,
