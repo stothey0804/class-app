@@ -27,18 +27,22 @@ interface ClassFilterProps {
  */
 export function ClassFilter({ sortBy, onSortChange }: ClassFilterProps) {
   return (
-    <Select value={sortBy} onValueChange={onSortChange}>
-      <SelectTrigger>
-        <SelectValue placeholder="정렬" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>정렬</SelectLabel>
-          <SelectItem value={SORT_TYPE_ID_DESC}>최신 등록순</SelectItem>
-          <SelectItem value={SORT_TYPE_CAPACITY_DESC}>신청자 많은순</SelectItem>
-          <SelectItem value={SORT_TYPE_RATE_DESC}>수강률 높은순</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <div className="flex w-full">
+      <Select value={sortBy} onValueChange={onSortChange}>
+        <SelectTrigger>
+          <SelectValue placeholder="정렬" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>정렬</SelectLabel>
+            <SelectItem value={SORT_TYPE_ID_DESC}>최신 등록순</SelectItem>
+            <SelectItem value={SORT_TYPE_CAPACITY_DESC}>
+              신청자 많은순
+            </SelectItem>
+            <SelectItem value={SORT_TYPE_RATE_DESC}>수강률 높은순</SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+    </div>
   );
 }

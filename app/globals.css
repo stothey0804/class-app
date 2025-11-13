@@ -118,11 +118,12 @@
   }
   body {
     @apply bg-background text-foreground;
-    max-width: 600px;
-    margin: 0 auto;
   }
 }
 
 #root {
+  max-width: 100%;
+  width: 600px;
+  margin: 0 auto;
   padding: 1.2em;
 }
