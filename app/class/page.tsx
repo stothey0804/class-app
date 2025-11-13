@@ -5,7 +5,7 @@ import {
   ClassFilter,
   ClassList,
   ClassItem,
-  ApplyBtn,
+  Buttons,
 } from "../components/class";
 import { useGetClassData } from "@/lib/queries";
 
@@ -32,7 +32,7 @@ export default function Page() {
               />
             ))}
         </ClassList>
-        <ApplyBtn />
+        <Buttons />
       </Card>
     </main>
   );

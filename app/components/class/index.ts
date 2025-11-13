@@ -1,4 +1,4 @@
 export * from "./ClassFilter";
 export * from "./ClassList";
 export * from "./ClassItem";
-export * from "./ApplyBtn";
+export * from "./Buttons";

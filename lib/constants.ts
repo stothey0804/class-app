@@ -9,3 +9,6 @@ export const INPUT_USER_TYPE_INSTRUCTOR_ID = "inputInstructor";
 export const INPUT_USER_TYPE_LEARNER_ID = "inputLearner";
 
 export const QUERY_KEY_GET_CLASS = "get_class";
+
+export const DATA_KEY_USER_NAME = "user_name";
+export const DATA_KEY_USER_TYPE = "user_type";

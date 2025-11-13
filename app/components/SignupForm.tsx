@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 import { Card } from "@/components/ui/card";
 import { Field, FieldLabel, FieldSet } from "@/components/ui/field";
@@ -8,6 +10,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
+  DATA_KEY_USER_NAME,
+  DATA_KEY_USER_TYPE,
   INPUT_EMAIL_ID,
   INPUT_NAME_ID,
   INPUT_PASSWORD_ID,
@@ -26,7 +30,11 @@ import { isAvailablePassword } from "@/lib/validation";
  */
 export function SignupForm() {
   const [isInvalidPassword, setIsInvalidPassword] = useState(false);
+  const router = useRouter();
 
+  /**
+   * 회원가입 핸들러
+   */
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -42,14 +50,13 @@ export function SignupForm() {
 
     const data = {
       name: formData.get("name"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
-      password: password,
       userType: formData.get("userType"),
     };
 
-    // TODO: 입력 데이터 처리 - localStorage
-    console.log(data);
+    Cookies.set(DATA_KEY_USER_NAME, data.name as string);
+    Cookies.set(DATA_KEY_USER_TYPE, data.userType as string);
+
+    router.push("/class");
   };
 
   return (
