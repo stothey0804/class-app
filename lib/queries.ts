@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import {
   QueryClient,
   useInfiniteQuery,
+  useQuery,
   useMutation,
 } from "@tanstack/react-query";
 
@@ -16,7 +17,22 @@ export const queryClient = new QueryClient();
 axios.defaults.baseURL = "http://localhost:3001";
 
 /**
- * react query hook - 강의 목록 무한 스크롤 조회
+ * react query hook
+ * - 강의 전체 목록 조회
+ * - 클라이언트 정렬로 인해 전체 목록 조회를 사용합니다.
+ */
+export const useGetClassData = () => {
+  return useQuery({
+    queryKey: [QUERY_KEY_GET_CLASS],
+    queryFn: () => getAllClassData(),
+    staleTime: Infinity,
+  });
+};
+
+/**
+ * react query hook
+ * - 강의 목록 무한 스크롤 조회
+ * - 클라이언트 정렬로 변경하였기 때문에 현재 사용하지 않습니다.
  */
 export const useGetInfiniteClassData = (limit: number = 10) => {
   return useInfiniteQuery({
@@ -56,11 +72,27 @@ const getClassDataWithPagination = async (
   limit: number
 ): Promise<ClassListResponse> => {
   try {
-    // params _sort: json-server 에서 정렬 기준을 정의함
     const response = await axios.get<ClassListResponse>("/class", {
       params: {
         _page: page,
         _per_page: limit,
+        _sort: "id",
+        _order: "desc",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+/**
+ * 강의 전체 목록 조회 요청
+ */
+const getAllClassData = async (): Promise<ClassData[]> => {
+  try {
+    const response = await axios.get<ClassData[]>("/class", {
+      params: {
         _sort: "id",
         _order: "desc",
       },

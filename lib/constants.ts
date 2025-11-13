@@ -20,3 +20,5 @@ export const DATA_KEY_USER_TYPE = "user_type";
 export const SORT_TYPE_ID_DESC = "id_desc";
 export const SORT_TYPE_CAPACITY_DESC = "capacity_desc";
 export const SORT_TYPE_RATE_DESC = "rate_desc";
+
+export const CLASS_PER_PAGE = 10;
