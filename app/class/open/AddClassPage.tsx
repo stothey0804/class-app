@@ -7,13 +7,13 @@ import { Card } from "@/components/ui/card";
 import { Field, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+
 import {
   INPUT_CLASS_CAPACITY_ID,
   INPUT_CLASS_Title_ID,
   INPUT_CLASS_PRICE_ID,
   DATA_KEY_USER_NAME,
 } from "@/lib/constants";
-
 import { useAddClassData } from "@/lib/queries";
 import { formatPrice } from "@/lib/utils";
 
@@ -21,12 +21,11 @@ import { formatPrice } from "@/lib/utils";
  * 강의 등록 페이지 클라이언트 컴포넌트
  */
 export function AddClassPage() {
-  const { mutate, isPending } = useAddClassData();
   const [priceValue, setPriceValue] = useState("");
 
-  /**
-   * 가격 입력 핸들러
-   */
+  const { mutate, isPending } = useAddClassData();
+
+  /** 가격 입력 핸들러*/
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // 숫자만 추출
     const value = e.target.value.replace(/[^\d]/g, "");
@@ -34,12 +33,9 @@ export function AddClassPage() {
     setPriceValue(formatted);
   };
 
-  /**
-   * 강의등록 핸들러
-   */
+  /** 강의등록 핸들러*/
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const formData = new FormData(e.currentTarget);
 
     const userName = Cookies.get(DATA_KEY_USER_NAME);

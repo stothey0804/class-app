@@ -23,19 +23,22 @@ import {
 } from "@/lib/constants";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircleIcon } from "lucide-react";
+
 import { isAvailablePassword, formatPhoneNumber } from "@/lib/utils";
 
 /**
- * 회원 가입 페이지 클라이언트 컴포넌트
+ * 회원 가입 페이지 컴포넌트
  */
 export function SignupPage() {
   const [isInvalidPassword, setIsInvalidPassword] = useState(false);
+
   const [phoneValue, setPhoneValue] = useState("");
 
   const router = useRouter();
 
   /**
    * 전화번호 입력 핸들러
+   * - 입력 시 포맷 유지 (e.g. 000-0000-0000)
    */
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formatted = formatPhoneNumber(e.target.value);
@@ -43,7 +46,7 @@ export function SignupPage() {
   };
 
   /**
-   * 회원가입 핸들러
+   * 회원가입 submit 핸들러
    */
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -155,7 +158,8 @@ export function SignupPage() {
 }
 
 /**
- * 비밀번호 조건 미충족 시 Alert
+ * Alert 컴포넌트
+ * - 비밀번호 조건 미충족 시 노출
  */
 const PasswordAlert = () => {
   return (

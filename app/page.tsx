@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * root 페이지 - 회원가입
+ * root - 회원가입 (서버 컴포넌트)
  */
 export default function Home() {
   return <SignupPage />;

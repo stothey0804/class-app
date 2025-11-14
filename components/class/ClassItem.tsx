@@ -1,9 +1,12 @@
 "use client";
 
+import { memo } from "react";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { ClassData } from "@/lib/types";
 import { Badge } from "@/components/ui/badge";
+
+import { ClassData } from "@/lib/types";
 import { formatPrice } from "@/lib/utils";
 
 interface ClassItemProps {
@@ -12,7 +15,14 @@ interface ClassItemProps {
   onToggle?: () => void;
 }
 
-export function ClassItem({ data, checked, onToggle }: ClassItemProps) {
+/** 강의 목록 > 개별 강의 항목
+ * - li
+ */
+export const ClassItem = memo(function ClassItem({
+  data,
+  checked,
+  onToggle,
+}: ClassItemProps) {
   const { id, title, capacity, instructor, applicants, sellingPrice } = data;
 
   return (
@@ -43,4 +53,4 @@ export function ClassItem({ data, checked, onToggle }: ClassItemProps) {
       </Label>
     </li>
   );
-}
+});

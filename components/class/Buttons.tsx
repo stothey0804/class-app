@@ -2,10 +2,11 @@
 
 import Cookies from "js-cookie";
 
-import { DATA_KEY_USER_TYPE, USER_INSTRUCTOR } from "@/lib/constants";
 import { ApplyBtn } from "./ApplyBtn";
 import { AddBtn } from "./AddBtn";
+
 import { SelectedClass } from "@/lib/types";
+import { DATA_KEY_USER_TYPE, USER_INSTRUCTOR } from "@/lib/constants";
 import { useIncreaseApplicant } from "@/lib/queries";
 
 interface ButtonProps {
@@ -26,6 +27,7 @@ export function Buttons({
 
   const { mutate } = useIncreaseApplicant();
 
+  /** 강의 신청 버튼 클릭 핸들러 */
   const handleApplyClick = () => {
     if (selectedClassList.length === 0) {
       alert("신청할 강의를 선택해주세요.");

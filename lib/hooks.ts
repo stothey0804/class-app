@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
+
 import { ClassData, SelectedClass } from "./types";
 
 interface UseIntersectionObserverProps {
@@ -8,7 +9,10 @@ interface UseIntersectionObserverProps {
 }
 
 /**
- * Intersection Observer hook - 무한 스크롤
+ * 무한 스크롤 hook
+ * - Intersection Observer
+ *
+ * @return targetRef
  */
 export const useIntersectionObserver = ({
   fetchNextPage,
@@ -55,7 +59,7 @@ export const useIntersectionObserver = ({
  * 강의 선택 관리 hook
  * - 체크박스 상태 관리 추상화
  *
- * @returns 선택/해제/초기화/확인
+ * @returns selectedList, isSelected, toggleSelection, clearSelection
  */
 export const useClassSelection = () => {
   const [selectedList, setSelectedList] = useState<SelectedClass[]>([]);

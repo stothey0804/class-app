@@ -1,16 +1,23 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
+
 import { Card } from "@/components/ui/card";
-import { ClassFilter, ClassList, ClassItem, Buttons } from "@/components/class";
+import {
+  ClassFilter,
+  ClassList,
+  ClassItem,
+  Buttons,
+  TotalSection,
+} from "@/components/class";
 
 import { useGetClassData } from "@/lib/queries";
 import { useIntersectionObserver, useClassSelection } from "@/lib/hooks";
 import { Spinner } from "@/components/ui/spinner";
+
 import { CLASS_PER_PAGE, SORT_TYPE_ID_DESC } from "@/lib/constants";
 import { SortType } from "@/lib/types";
 import { sortDataList } from "@/lib/utils";
-import { TotalSection } from "@/components/class/TotalSection";
 
 /**
  * 강의 목록 클라이언트 컴포넌트
@@ -50,7 +57,7 @@ export function ClassPage() {
 
   const hasNextPage = displayCount < sortedData.length;
 
-  /** 무한 스크롤 타겟 ref */
+  // 무한 스크롤 타겟 ref
   const { targetRef } = useIntersectionObserver({
     fetchNextPage: () => {
       if (hasNextPage) {
@@ -61,10 +68,10 @@ export function ClassPage() {
   });
 
   /** 정렬 변경 핸들러 */
-  const handleSortChange = (newSort: SortType) => {
+  const handleSortChange = useCallback((newSort: SortType) => {
     setSortBy(newSort);
-    setDisplayCount(10);
-  };
+    setDisplayCount(CLASS_PER_PAGE);
+  }, []);
 
   if (isLoading) {
     return <Spinner />;
@@ -73,7 +80,9 @@ export function ClassPage() {
   return (
     <main>
       <Card className="p-4">
+        {/* 정렬 선택 필터 */}
         <ClassFilter sortBy={sortBy} onSortChange={handleSortChange} />
+        {/* 강의 목록 */}
         <ClassList>
           {displayedData.length &&
             displayedData.map((classData) => (
@@ -89,10 +98,12 @@ export function ClassPage() {
             {hasNextPage && <Spinner />}
           </div>
         </ClassList>
+        {/* 총 선택 갯수, 금액 표시 */}
         <TotalSection
           totalAmount={totalAmount}
           totalSellingPrice={totalSellingPrice}
         />
+        {/* 수강신청, 강의등록 버튼 영역 */}
         <Buttons
           selectedClassList={selectedList}
           onClearSelection={clearSelection}

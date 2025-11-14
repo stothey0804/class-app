@@ -16,9 +16,10 @@ import {
 } from "./constants";
 import { ClassData, ClassListResponse } from "./types";
 
+// 공통 queryClient
 export const queryClient = new QueryClient();
 
-axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = "http://localhost:3001"; // json-server 실행 포트
 
 /**
  * react query hook
@@ -51,6 +52,10 @@ export const useGetInfiniteClassData = (limit: number = 10) => {
   });
 };
 
+/**
+ * react query hook
+ * - 강의 등록
+ */
 export const useAddClassData = () => {
   const router = useRouter();
 
@@ -87,9 +92,9 @@ export const useIncreaseApplicant = () => {
   });
 };
 
-/**
- * 강의 목록 페이지네이션 조회 요청
- */
+// functions
+
+/** 강의 목록 페이지네이션 조회 요청*/
 const getClassDataWithPagination = async (
   page: number,
   limit: number
@@ -109,9 +114,7 @@ const getClassDataWithPagination = async (
   }
 };
 
-/**
- * 강의 전체 목록 조회 요청
- */
+/** 강의 전체 목록 조회 요청 */
 const getAllClassData = async (): Promise<ClassData[]> => {
   try {
     const response = await axios.get<ClassData[]>("/class", {
@@ -126,9 +129,7 @@ const getAllClassData = async (): Promise<ClassData[]> => {
   }
 };
 
-/**
- * 강의 목록 추가 요청
- * */
+/** 강의 목록 추가 요청*/
 const addClassData = async (data: ClassData) => {
   try {
     await axios.post("/class", data);
@@ -137,9 +138,7 @@ const addClassData = async (data: ClassData) => {
   }
 };
 
-/**
- * 강의 신청 시 인원 추가 처리
- */
+/** 강의 신청 시 인원 추가 처리*/
 const increaseApplicant = async (ids: Array<number>) => {
   try {
     const updatePromises = ids.map(async (id) => {

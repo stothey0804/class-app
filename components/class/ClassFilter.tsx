@@ -1,5 +1,7 @@
 "use client";
 
+import { memo } from "react";
+
 import {
   Select,
   SelectContent,
@@ -9,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
 import {
   SORT_TYPE_CAPACITY_DESC,
   SORT_TYPE_ID_DESC,
@@ -22,10 +25,14 @@ interface ClassFilterProps {
 }
 
 /**
- * 클래스 정렬 기준 select
+ * 클래스 정렬 선택 필터
+ * - select
  * @param sortBy 정렬 기준
  */
-export function ClassFilter({ sortBy, onSortChange }: ClassFilterProps) {
+export const ClassFilter = memo(function ClassFilter({
+  sortBy,
+  onSortChange,
+}: ClassFilterProps) {
   return (
     <div className="flex w-full">
       <Select value={sortBy} onValueChange={onSortChange}>
@@ -45,4 +52,4 @@ export function ClassFilter({ sortBy, onSortChange }: ClassFilterProps) {
       </Select>
     </div>
   );
-}
+});

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 /**
- * /class/open 페이지 - 강의등록
+ * /class/open - 강의등록 페이지 (서버 컴포넌트)
  */
 export default function Page() {
   return <AddClassPage />;
