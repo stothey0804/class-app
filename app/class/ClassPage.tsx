@@ -10,13 +10,13 @@ import {
   Buttons,
   TotalSection,
 } from "@/components/class";
-
-import { useGetClassData } from "@/lib/queries";
-import { useIntersectionObserver, useClassSelection } from "@/lib/hooks";
 import { Spinner } from "@/components/ui/spinner";
+import { InfiniteScrollTrigger } from "@/components/InfiniteScrollTrigger";
 
 import { CLASS_PER_PAGE, SORT_TYPE_ID_DESC } from "@/lib/constants";
 import { SortType } from "@/lib/types";
+import { useGetClassData } from "@/lib/queries";
+import { useIntersectionObserver, useClassSelection } from "@/lib/hooks";
 import { sortDataList } from "@/lib/utils";
 
 /**
@@ -94,9 +94,10 @@ export function ClassPage() {
               />
             ))}
           {/* 무한 스크롤 트리거 */}
-          <div ref={targetRef} className="h-1 flex items-center justify-center">
-            {hasNextPage && <Spinner />}
-          </div>
+          <InfiniteScrollTrigger
+            targetRef={targetRef}
+            hasNextPage={hasNextPage}
+          />
         </ClassList>
         {/* 총 선택 갯수, 금액 표시 */}
         <TotalSection

@@ -21,8 +21,7 @@ import {
   USER_INSTRUCTOR,
   USER_LEARNER,
 } from "@/lib/constants";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircleIcon } from "lucide-react";
+import { AlertMessage } from "@/components/AlertMessage";
 
 import { isAvailablePassword, formatPhoneNumber } from "@/lib/utils";
 
@@ -75,7 +74,15 @@ export function SignupPage() {
   return (
     <main>
       <Card className="p-4">
-        {isInvalidPassword && <PasswordAlert />}
+        {isInvalidPassword && (
+          <AlertMessage>
+            <p>
+              비밀번호는 6자 이상 10자 이하이며,
+              <br />
+              영문 소문자, 대문자, 숫자 중 최소 두 가지 이상 조합이어야 합니다.
+            </p>
+          </AlertMessage>
+        )}
         <form onSubmit={handleSubmit}>
           <FieldSet>
             <Field>
@@ -156,22 +163,3 @@ export function SignupPage() {
     </main>
   );
 }
-
-/**
- * Alert 컴포넌트
- * - 비밀번호 조건 미충족 시 노출
- */
-const PasswordAlert = () => {
-  return (
-    <Alert variant="destructive">
-      <AlertCircleIcon />
-      <AlertDescription>
-        <p>
-          비밀번호는 6자 이상 10자 이하이며,
-          <br />
-          영문 소문자, 대문자, 숫자 중 최소 두 가지 이상 조합이어야 합니다.
-        </p>
-      </AlertDescription>
-    </Alert>
-  );
-};
