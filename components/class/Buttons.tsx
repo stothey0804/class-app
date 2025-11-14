@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 
 import { ApplyBtn } from "./ApplyBtn";
@@ -23,7 +24,12 @@ export function Buttons({
   selectedClassList = [],
   onClearSelection,
 }: ButtonProps) {
-  const userType = Cookies.get(DATA_KEY_USER_TYPE);
+  const [userType, setUserType] = useState<string | undefined>(undefined);
+
+  // 클라이언트에서만 쿠키를 읽어서 hydration 불일치 방지
+  useEffect(() => {
+    setUserType(Cookies.get(DATA_KEY_USER_TYPE));
+  }, []);
 
   const { mutate } = useIncreaseApplicant();
 

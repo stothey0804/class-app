@@ -3,10 +3,10 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import {
-  QueryClient,
   useInfiniteQuery,
-  useQuery,
+  useSuspenseQuery,
   useMutation,
+  useQueryClient,
 } from "@tanstack/react-query";
 
 import {
@@ -16,21 +16,18 @@ import {
 } from "./constants";
 import { ClassData, ClassListResponse } from "./types";
 
-// 공통 queryClient
-export const queryClient = new QueryClient();
-
 axios.defaults.baseURL = "http://localhost:3001"; // json-server 실행 포트
 
 /**
  * react query hook
  * - 강의 전체 목록 조회
  * - 클라이언트 정렬로 인해 전체 목록 조회를 사용합니다.
+ * - Suspense를 사용하여 로딩 상태를 처리합니다.
  */
 export const useGetClassData = () => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: [QUERY_KEY_GET_CLASS],
     queryFn: () => getAllClassData(),
-    staleTime: Infinity,
   });
 };
 
@@ -48,7 +45,6 @@ export const useGetInfiniteClassData = (limit: number = 10) => {
       return lastPage.next;
     },
     initialPageParam: 1,
-    staleTime: Infinity,
   });
 };
 
@@ -58,6 +54,7 @@ export const useGetInfiniteClassData = (limit: number = 10) => {
  */
 export const useAddClassData = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: [MUTATE_KEY_ADD_CLASS],
@@ -78,6 +75,8 @@ export const useAddClassData = () => {
  * - 강의 신청 (applicants 증가)
  */
 export const useIncreaseApplicant = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationKey: [MUTATE_KEY_APPLY_CLASS],
     mutationFn: (ids: Array<number>) => increaseApplicant(ids),

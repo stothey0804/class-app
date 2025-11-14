@@ -36,7 +36,7 @@ export const ClassFilter = memo(function ClassFilter({
   return (
     <div className="flex w-full">
       <Select value={sortBy} onValueChange={onSortChange}>
-        <SelectTrigger>
+        <SelectTrigger className="w-[140px]">
           <SelectValue placeholder="정렬" />
         </SelectTrigger>
         <SelectContent>
